@@ -1,24 +1,18 @@
-FROM java:alpine
-MAINTAINER zhoutaoo "zhoutaoo@foxmail.com"
+FROM registry.cn-beijing.aliyuncs.com/jenphyjohn/alpine-java
+MAINTAINER JenphyJohn "zhuangzf1989@126.com"
 
 # set environment
 ENV BASE_DIR="/home/sentinel" \
     SERVER_PORT="8021" \
     DASHBOARD_SERVER="localhost:8021" \
     PROJECT_NAME="sentinel-dashboard" \
-    JAVA_OPTS="" \
-    TIME_ZONE="Asia/Shanghai"
+    JAVA_OPTS=""
 
-ARG SENTINEL_DASHBOARD_VERSION=1.6.3
+ARG SENTINEL_DASHBOARD_VERSION=1.7.1
 
-WORKDIR /$BASE_DIR
+WORKDIR $BASE_DIR
 
-RUN set -x \
-    && apk --no-cache add ca-certificates wget \
-    && update-ca-certificates \
-    && wget https://github.com/alibaba/Sentinel/releases/download/${SENTINEL_DASHBOARD_VERSION}/sentinel-dashboard-${SENTINEL_DASHBOARD_VERSION}.jar -P $BASE_DIR \
-    && ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo '$TIME_ZONE' > /etc/timezone
-
+ADD sentinel-dashboard-${SENTINEL_DASHBOARD_VERSION}.jar sentinel-dashboard-${SENTINEL_DASHBOARD_VERSION}.jar
 ADD bin/docker-entrypoint.sh bin/docker-entrypoint.sh
 
 # set startup log dir

@@ -1,7 +1,7 @@
 version: '3'
 services:
     sentinel-dashboard:
-      image: cike/sentinel-dashboard:latest
+      image: registry.cn-beijing.aliyuncs.com/jenphyjohn/sentinel-dashboard
       container_name: sentinel-dashboard
       restart: always
       ports:
